@@ -31,7 +31,11 @@ class PrettyPrinter
         $message .= preg_replace_callback(
             '/\{(\d+)\}/',
             function ($match) use ($args) {
-                return $this->formatValue($args[(int)$match[1]]);
+                $res = $this->formatValue(null);
+                if(array_key_exists(1, $match) && array_key_exists($match[1], $args)) {
+                  $res = $this->formatValue($args[(int)$match[1]]);
+                }
+                return $res;
             },
             $format
         );
