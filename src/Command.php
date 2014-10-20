@@ -77,8 +77,13 @@ class Command extends BaseCommand
         if (isset($options->bootstrap)) {
             require($options->bootstrap);
         }
+        
+        $spec_files_suffix = 'Spec';
+        if (isset($options->spec_files_suffix)) {
+            $spec_files_suffix = $options->spec_files_suffix;
+        }        
 
-        foreach ($this->fileScanner->find($options->paths, 'Spec.php') as $file) {
+        foreach ($this->fileScanner->find($options->paths, $spec_files_suffix.'.php') as $file) {
             require($file);
         }
 
